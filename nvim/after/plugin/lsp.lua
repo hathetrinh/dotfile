@@ -8,6 +8,7 @@ lsp.ensure_installed({
     "html",
     "cssls",
     "lua_ls",
+    "cssmodules_ls",
     "rust_analyzer",
     "sqlls",
 })
