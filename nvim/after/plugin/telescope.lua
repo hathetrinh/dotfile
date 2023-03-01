@@ -9,6 +9,7 @@ vim.keymap.set('n', '<leader>fm', builtin.marks, {})
 vim.keymap.set('n', '<leader>fr', builtin.registers, {})
 vim.keymap.set('n', '<leader>fo', builtin.oldfiles, {})
 vim.keymap.set('n', '<leader>fk', builtin.keymaps, {})
+vim.keymap.set('n', '<leader>fc', builtin.git_commits, {})
 vim.keymap.set('n', '<leader>fs', function()
     builtin.grep_string({ search = vim.fn.input("Grep > ") });
 end)
