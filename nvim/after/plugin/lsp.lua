@@ -11,6 +11,8 @@ lsp.ensure_installed({
     "cssmodules_ls",
     "rust_analyzer",
     "sqlls",
+    "tailwindcss",
+    "emmet_ls",
 })
 
 -- Fix Undefined global 'vim'
