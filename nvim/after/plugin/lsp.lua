@@ -85,15 +85,25 @@ lsp.on_attach(function(client, bufnr)
         client.server_capabilities.documentFormattingRangeProvider = false
     end
 
+    if client.name == "cssmodules_ls" then
+        client.server_capabilities.definitionProvider = false
+    end
+
+    if client.name == "cssls" then
+        local capabilities = vim.lsp.protocol.make_client_capabilities()
+        capabilities.textDocument.completion.completionItem.snippetSupport = true
+    end
+
     vim.keymap.set("n", "gd", ":Telescope lsp_definitions<CR>", opts)
     vim.keymap.set("n", "gr", ":Telescope lsp_references<CR>", opts)
     vim.keymap.set("n", "gi", ":Telescope lsp_implementations<CR>", opts)
+    vim.keymap.set("n", "<leader>la", ":Telescope lsp_code_actions<CR>",opts)
     vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+    vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
     vim.keymap.set("n", "<leader>lw", vim.lsp.buf.workspace_symbol, opts)
     vim.keymap.set("n", "<leader>ld", vim.diagnostic.open_float, opts)
     vim.keymap.set("n", "<leader>x", vim.diagnostic.goto_next, opts)
     vim.keymap.set("n", "<leader>X", vim.diagnostic.goto_prev, opts)
-    vim.keymap.set("n", "<leader>la", vim.lsp.buf.code_action, opts)
     vim.keymap.set("n", "<leader>lr", vim.lsp.buf.references, opts)
     vim.keymap.set("n", "<leader>ln", vim.lsp.buf.rename, opts)
     vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts)
