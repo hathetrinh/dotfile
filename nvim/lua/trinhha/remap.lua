@@ -66,3 +66,9 @@ vim.keymap.set("n", "<S-Right>", ":vertical resize +2<CR>", opts)
 
 -- zendmode
 vim.keymap.set("n", "<leader>z", "<cmd>ZenMode<cr>")
+
+-- termial
+vim.keymap.set("t", "<Esc>", "<C-\\><C-n>",opts)
+vim.keymap.set("t", "jk", "<C-\\><C-n>",opts)
+vim.keymap.set("n", "<leader>vt", ":vsplit term://zsh<CR>", opt)
+vim.keymap.set("n", "<leader>ht", ":split term://zsh<CR>", opt)
