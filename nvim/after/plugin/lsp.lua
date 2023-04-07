@@ -39,6 +39,15 @@ lsp.configure("emmet_ls", {
 })
 
 local cmp = require("cmp")
+cmp.setup({
+  sources = {
+    {name = 'path'},
+    {name = 'nvim_lsp'},
+    {name = 'buffer', keyword_length = 3},
+    {name = 'luasnip', keyword_length = 2},
+  }
+})
+
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
 local cmp_mappings = lsp.defaults.cmp_mappings({
     ["<C-p>"] = cmp.mapping.select_prev_item(cmp_select),
@@ -119,7 +128,7 @@ local diagnostics = null_ls.builtins.diagnostics
 null_ls.setup({
     debug = false,
     sources = {
-        formatting.prettier.with({ extra_args = { "--single-quote", "--jsx-single-quote" } }),
+        formatting.prettier,
         formatting.black.with({ extra_args = { "--fast" } }),
         formatting.stylua,
         formatting.sql_formatter,

@@ -33,3 +33,12 @@ vim.opt.colorcolumn = "120"
 
 vim.opt.splitright = true
 vim.opt.splitbelow = true
+
+local cmd   = vim.cmd
+cmd[[ 
+    augroup AutoSave
+        autocmd!
+        autocmd CursorHoldI, CursorHold * silent! update
+    augroup end
+]]
+
