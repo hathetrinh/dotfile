@@ -49,6 +49,7 @@ vim.keymap.set("n", "<leader>q", ":qa!<CR>")
 -- buffer navigation
 vim.keymap.set("n", "<S-l>", "<cmd>bnext<cr>")
 vim.keymap.set("n", "<S-h>", "<cmd>bprevious<Cr>")
+vim.keymap.set("n", "<C-c>", "<cmd>bd<cr>")
 
 -- show file location
 vim.keymap.set("n", "<leader>sp", ":echo expand('%:p')<CR>")
