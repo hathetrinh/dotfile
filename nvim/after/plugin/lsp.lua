@@ -12,6 +12,7 @@ lsp.ensure_installed({
     "rust_analyzer",
     "sqlls",
     "tailwindcss",
+    "jsonls",
     "emmet_ls",
 })
 
@@ -104,7 +105,8 @@ lsp.on_attach(function(client, bufnr)
     end
 
     vim.keymap.set("n", "gd", ":Telescope lsp_definitions<CR>", opts)
-    vim.keymap.set("n", "gr", ":Telescope lsp_references<CR>", opts)
+    vim.keymap.set("n", "gr", ":Lspsaga lsp_finder<CR>", opts)
+    vim.keymap.set("n", "gp", ":Lspsaga peek_definition<CR>", opts)
     vim.keymap.set("n", "gi", ":Telescope lsp_implementations<CR>", opts)
     vim.keymap.set("n", "<leader>la", vim.lsp.buf.code_action, opts)
     vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)

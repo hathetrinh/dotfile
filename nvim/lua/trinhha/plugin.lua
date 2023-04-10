@@ -32,7 +32,7 @@ return require("packer").startup(function(use)
 
     use("nvim-treesitter/nvim-treesitter", { run = ":TSUpdate}" })
     use("nvim-treesitter/playground")
-    use("ThePrimeagen/harpoon")
+    --use("ThePrimeagen/harpoon")
     use("mbbill/undotree")
     use("tpope/vim-fugitive")
 
@@ -56,6 +56,16 @@ return require("packer").startup(function(use)
             { "L3MON4D3/LuaSnip" },
             { "rafamadriz/friendly-snippets" },
         },
+    })
+
+    use({
+        "glepnir/lspsaga.nvim",
+        opt = true,
+        branch = "main",
+        event = "LspAttach",
+        config = function()
+            require("lspsaga").setup({})
+        end,
     })
 
     use("tpope/vim-liquid")
