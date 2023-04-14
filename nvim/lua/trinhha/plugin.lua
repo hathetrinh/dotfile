@@ -133,6 +133,13 @@ return require("packer").startup(function(use)
         end,
     })
 
+    use({
+        "norcalli/nvim-colorizer.lua",
+        setup = function()
+            require("colorizer").setup()
+        end,
+    })
+
     if packer_bootstrap then
         require("packer").sync()
     end
