@@ -41,12 +41,12 @@ lsp.configure("emmet_ls", {
 
 local cmp = require("cmp")
 cmp.setup({
-  sources = {
-    {name = 'path'},
-    {name = 'nvim_lsp'},
-    {name = 'buffer', keyword_length = 3},
-    {name = 'luasnip', keyword_length = 2},
-  }
+    sources = {
+        { name = "path" },
+        { name = "nvim_lsp" },
+        { name = "buffer", keyword_length = 3 },
+        { name = "luasnip", keyword_length = 2 },
+    },
 })
 
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
@@ -104,19 +104,19 @@ lsp.on_attach(function(client, bufnr)
         capabilities.textDocument.completion.completionItem.snippetSupport = true
     end
 
-    vim.keymap.set("n", "gd", ":Telescope lsp_definitions<CR>", opts)
+    vim.keymap.set("n", "gd", ":Lspsaga goto_definition<CR>", opts)
     vim.keymap.set("n", "gr", ":Lspsaga lsp_finder<CR>", opts)
     vim.keymap.set("n", "gp", ":Lspsaga peek_definition<CR>", opts)
     vim.keymap.set("n", "gi", ":Telescope lsp_implementations<CR>", opts)
-    vim.keymap.set("n", "<leader>la", vim.lsp.buf.code_action, opts)
+    vim.keymap.set("n", "<leader>la", ":Lspsaga code_action<CR>", opts)
     vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-    vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
+    vim.keymap.set("n", "<C-k>", ":Lspsaga hover_doc<cr>", opts)
     vim.keymap.set("n", "<leader>lw", vim.lsp.buf.workspace_symbol, opts)
     vim.keymap.set("n", "<leader>ld", vim.diagnostic.open_float, opts)
     vim.keymap.set("n", "<leader>x", vim.diagnostic.goto_next, opts)
     vim.keymap.set("n", "<leader>X", vim.diagnostic.goto_prev, opts)
     vim.keymap.set("n", "<leader>lr", vim.lsp.buf.references, opts)
-    vim.keymap.set("n", "<leader>ln", vim.lsp.buf.rename, opts)
+    vim.keymap.set("n", "<leader>ln", ":Lspsaga rename<CR>", opts)
     vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts)
 end)
 
