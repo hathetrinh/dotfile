@@ -11,25 +11,32 @@ local nvimtree = require("nvim-tree.config")
 local tree_cb = nvimtree.nvim_tree_callback
 -- OR setup with some options
 require("nvim-tree").setup({
-	update_focused_file = {
-		enable = true,
-		update_cwd = true,
-	},
-	sort_by = "case_sensitive",
-	view = {
-		adaptive_size = true,
-		mappings = {
-			list = {
-				{ key = "u", action = "dir_up" },
-				{ key = "h", cb = tree_cb("close_node") },
-				{ key = "v", cb = tree_cb("vsplit") },
-			},
-		},
-	},
-	renderer = {
-		group_empty = true,
-	},
-	filters = {
-		dotfiles = true,
-	},
+    update_focused_file = {
+        enable = true,
+        update_cwd = true,
+    },
+    sort_by = "case_sensitive",
+    view = {
+        adaptive_size = false,
+        width = 50,
+        preserve_window_proportions = false,
+        mappings = {
+            list = {
+                { key = "u", action = "dir_up" },
+                { key = "h", cb = tree_cb("close_node") },
+                { key = "v", cb = tree_cb("vsplit") },
+            },
+        },
+    },
+    renderer = {
+        group_empty = true,
+    },
+    filters = {
+        dotfiles = true,
+    },
+    actions = {
+        open_file = {
+            resize_window = true,
+        },
+    },
 })
