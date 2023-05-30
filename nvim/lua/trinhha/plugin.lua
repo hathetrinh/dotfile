@@ -135,6 +135,8 @@ return require("packer").startup(function(use)
 
     use("norcalli/nvim-colorizer.lua")
 
+    use("sindrets/diffview.nvim")
+
     if packer_bootstrap then
         require("packer").sync()
     end

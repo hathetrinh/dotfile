@@ -34,6 +34,9 @@ vim.opt.colorcolumn = "120"
 vim.opt.splitright = true
 vim.opt.splitbelow = true
 
+vim.opt.spelllang = 'en_us'
+vim.opt.spell = true
+
 local cmd = vim.cmd
 cmd([[ 
     augroup AutoSave
