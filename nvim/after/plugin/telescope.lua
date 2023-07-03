@@ -1,4 +1,5 @@
 require('telescope').setup{defaults = {file_ignore_patterns = {"node_modules", ".git"}}}
+require('telescope').load_extension('luasnip');
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
 vim.keymap.set('n', '<leader>ft', builtin.live_grep, {})

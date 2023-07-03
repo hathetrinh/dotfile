@@ -53,8 +53,41 @@ return require("packer").startup(function(use)
             { "hrsh7th/cmp-nvim-lua" },
 
             -- Snippets
-            { "L3MON4D3/LuaSnip" },
+            {
+                "L3MON4D3/LuaSnip",
+                build = vim.fn.has("win32") ~= 0
+                    and
+                    "echo 'NOTE: jsregexp is optional, so not a big deal if it fails to build\n'; make install_jsregexp"
+                    or nil,
+                dependencies = {
+                    "zeioth/friendly-snippets", -- change to rafamadriz once all is merged
+                    "benfowler/telescope-luasnip.nvim",
+                },
+                config = function(_, opts)
+                    if opts then
+                        require("luasnip").config.setup(opts)
+                    end
+                    vim.tbl_map(function(type)
+                        require("luasnip.loaders.from_" .. type).lazy_load()
+                    end, { "vscode", "snipmate", "lua" })
+                    -- friently-snippets - enable standardized comments snippets
+                    require("luasnip").filetype_extend("typescript", { "tsdoc" })
+                    require("luasnip").filetype_extend("javascript", { "jsdoc" })
+                    require("luasnip").filetype_extend("lua", { "luadoc" })
+                    require("luasnip").filetype_extend("python", { "python-docstring" })
+                    require("luasnip").filetype_extend("rust", { "rustdoc" })
+                    require("luasnip").filetype_extend("cs", { "csharpdoc" })
+                    require("luasnip").filetype_extend("java", { "javadoc" })
+                    require("luasnip").filetype_extend("sh", { "shelldoc" })
+                    require("luasnip").filetype_extend("c", { "cdoc" })
+                    require("luasnip").filetype_extend("cpp", { "cppdoc" })
+                    require("luasnip").filetype_extend("php", { "phpdoc" })
+                    require("luasnip").filetype_extend("kotlin", { "kdoc" })
+                    require("luasnip").filetype_extend("ruby", { "rdoc" })
+                end,
+            },
             { "rafamadriz/friendly-snippets" },
+            { "benfowler/telescope-luasnip.nvim" },
         },
     })
 
@@ -136,6 +169,30 @@ return require("packer").startup(function(use)
     use("norcalli/nvim-colorizer.lua")
 
     use("sindrets/diffview.nvim")
+
+    use {
+  "mfussenegger/nvim-dap",
+  opt = true,
+  module = { "dap" },
+  requires = {
+    "theHamsta/nvim-dap-virtual-text",
+    "rcarriga/nvim-dap-ui",
+    "mfussenegger/nvim-dap-python",
+    "nvim-telescope/telescope-dap.nvim",
+    { "leoluz/nvim-dap-go", module = "dap-go" },
+    { "jbyuki/one-small-step-for-vimkind", module = "osv" },
+    { "mxsdev/nvim-dap-vscode-js", module = { "dap-vscode-js" } }
+    {
+      "microsoft/vscode-js-debug",
+      opt = true,
+      run = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out" 
+    },
+  },
+  config = function()
+    require("config.dap").setup()
+  end,
+  disable = false,
+}
 
     if packer_bootstrap then
         require("packer").sync()
