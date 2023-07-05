@@ -170,6 +170,23 @@ return require("packer").startup(function(use)
 
     use("sindrets/diffview.nvim")
 
+    use("tigion/nvim-asciidoc-preview")
+
+    --debug
+    use("mfussenegger/nvim-dap")
+
+    use({
+        "microsoft/vscode-js-debug",
+        opt = true,
+        run = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out",
+    })
+
+    use("mxsdev/nvim-dap-vscode-js")
+
+    use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } })
+
+    use("nvim-telescope/telescope-dap.nvim")
+
     if packer_bootstrap then
         require("packer").sync()
     end
