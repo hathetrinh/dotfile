@@ -30,6 +30,19 @@ return require("packer").startup(function(use)
         end,
     })
 
+    use({
+        "tiagovla/tokyodark.nvim",
+        opts = {
+            -- custom options here
+        },
+        config = function(_, opts)
+            require("tokyodark").setup(opts) -- calling setup is optional
+        end,
+    })
+
+    -- Using Packer
+    use("navarasu/onedark.nvim")
+
     use("nvim-treesitter/nvim-treesitter", { run = ":TSUpdate}" })
     use("nvim-treesitter/playground")
     --use("ThePrimeagen/harpoon")
@@ -38,6 +51,7 @@ return require("packer").startup(function(use)
 
     use({
         "VonHeikemen/lsp-zero.nvim",
+        branch = "v1.x",
         requires = {
             -- LSP Support
             { "neovim/nvim-lspconfig" },
@@ -92,10 +106,11 @@ return require("packer").startup(function(use)
     })
 
     use({
-        "glepnir/lspsaga.nvim",
-        opt = true,
-        branch = "main",
-        event = "LspAttach",
+        "nvimdev/lspsaga.nvim",
+        --opt = true,
+        --branch = "main",
+        --event = "LspAttach",
+        --after = "nvim-lspconfig",
         config = function()
             require("lspsaga").setup({})
         end,
@@ -148,6 +163,15 @@ return require("packer").startup(function(use)
     })
 
     use("lukas-reineke/indent-blankline.nvim")
+    --use({
+    ---- Add indentation guides even on blank lines
+    --"lukas-reineke/indent-blankline.nvim",
+    --main = "ibl",
+    --opts = {
+    --char = "┊",
+    --show_trailing_blankline_indent = false,
+    --},
+    --})
 
     use({
         "iamcco/markdown-preview.nvim",
@@ -186,6 +210,8 @@ return require("packer").startup(function(use)
     use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } })
 
     use("nvim-telescope/telescope-dap.nvim")
+
+    use("ThePrimeagen/git-worktree.nvim")
 
     if packer_bootstrap then
         require("packer").sync()

@@ -105,10 +105,10 @@ lsp.on_attach(function(client, bufnr)
     end
 
     vim.keymap.set("n", "gd", ":Lspsaga goto_definition<CR>", opts)
-    vim.keymap.set("n", "gr", ":Lspsaga lsp_finder<CR>", opts)
+    vim.keymap.set("n", "gr", ":Lspsaga finder<CR>", opts)
     vim.keymap.set("n", "gp", ":Lspsaga peek_definition<CR>", opts)
     vim.keymap.set("n", "gi", ":Telescope lsp_implementations<CR>", opts)
-    vim.keymap.set("n", "gt", ":Lspsaga peek_type_definition<CR>", opts)
+    vim.keymap.set("n", "gt", ":Telescope lsp_type_definations<CR>", opts)
     vim.keymap.set("n", "<leader>la", ":Lspsaga code_action<CR>", opts)
     vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
     vim.keymap.set("n", "<C-k>", ":Lspsaga hover_doc<cr>", opts)

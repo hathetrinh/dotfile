@@ -1,7 +1,6 @@
 vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>e", "<cmd>NvimTreeToggle<CR>")
 vim.keymap.set("n", "<leader>mp", "<cmd>MarkdownPreviewToggle<CR>")
-vim.keymap.set("n", "<leader>t", "<cmd>ToggleTerm<CR>")
 
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
@@ -69,7 +68,8 @@ vim.keymap.set("n", "<S-Right>", ":vertical resize +2<CR>", opts)
 vim.keymap.set("n", "<leader>z", "<cmd>ZenMode<cr>")
 
 -- termial
-vim.keymap.set("t", "<Esc>", "<C-\\><C-n>",opts)
-vim.keymap.set("t", "jk", "<C-\\><C-n>",opts)
+vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", opts)
+vim.keymap.set("t", "jk", "<C-\\><C-n>", opts)
 vim.keymap.set("n", "<leader>vt", ":vsplit term://zsh<CR>", opt)
 vim.keymap.set("n", "<leader>ht", ":split term://zsh<CR>", opt)
+vim.keymap.set("n", "<C-t>", ":Lspsaga term_toggle<CR>", opt)

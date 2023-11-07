@@ -9,6 +9,7 @@ vim.opt.termguicolors = true
 
 local nvimtree = require("nvim-tree.config")
 local tree_cb = nvimtree.nvim_tree_callback
+
 -- OR setup with some options
 require("nvim-tree").setup({
     update_focused_file = {
@@ -16,6 +17,7 @@ require("nvim-tree").setup({
         update_cwd = true,
     },
     sort_by = "case_sensitive",
+    update_focused_file = {enable = true},
     view = {
         adaptive_size = false,
         width = 50,
