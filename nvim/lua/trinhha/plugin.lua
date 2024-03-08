@@ -138,7 +138,7 @@ return require("packer").startup(function(use)
     })
 
     use("tpope/vim-surround")
-    use("windwp/nvim-ts-autotag");
+    use("windwp/nvim-ts-autotag")
 
     use({
         "lewis6991/gitsigns.nvim",
@@ -215,6 +215,7 @@ return require("packer").startup(function(use)
     use("ThePrimeagen/git-worktree.nvim")
 
     --use("mfussenegger/nvim-jdtls")
+    use("ray-x/lsp_signature.nvim")
 
     if packer_bootstrap then
         require("packer").sync()

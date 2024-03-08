@@ -143,3 +143,13 @@ lsp.setup()
 vim.diagnostic.config({
     virtual_text = true,
 })
+
+require("lsp_signature").setup({
+    bind = true, -- This is mandatory, otherwise border config won't get registered.
+    handler_opts = {
+        border = "single",
+    },
+    shadow_guibg = "Green",
+    shadow_blend = 36,
+    transparency = 30,
+})
