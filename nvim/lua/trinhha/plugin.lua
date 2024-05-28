@@ -122,7 +122,12 @@ return require("packer").startup(function(use)
 
     use("tpope/vim-liquid")
 
-    use("jose-elias-alvarez/null-ls.nvim")
+    use({
+        "stevearc/conform.nvim",
+        config = function()
+            require("conform").setup()
+        end,
+    })
 
     use("folke/zen-mode.nvim")
 
