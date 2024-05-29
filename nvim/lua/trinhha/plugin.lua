@@ -58,14 +58,8 @@ return require("packer").startup(function(use)
 	use("tpope/vim-fugitive")
 
 	use({
-		"williamboman/mason.nvim",
-		"williamboman/mason-lspconfig.nvim",
-		"neovim/nvim-lspconfig",
-	})
-
-	use({
 		"VonHeikemen/lsp-zero.nvim",
-		branch = "v1.x",
+		branch = "v3.x",
 		requires = {
 			-- LSP Support
 			{ "neovim/nvim-lspconfig" },

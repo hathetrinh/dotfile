@@ -1,26 +1,40 @@
-require("mason").setup()
-require("mason-lspconfig").setup()
+local lsp_zero = require("lsp-zero")
 
-local lsp = require("lsp-zero")
+--local lua_opts = lsp_zero.nvim_lua_ls()
+local lspconfig = require("lspconfig")
 
-lsp.preset("recommended")
-
-lsp.ensure_installed({
-	"tsserver",
-	"eslint",
-	"html",
-	"cssls",
-	"lua_ls",
-	"cssmodules_ls",
-	"rust_analyzer",
-	"sqlls",
-	"tailwindcss",
-	"jsonls",
-	"emmet_ls",
+lspconfig.lua_ls.setup({
+	settings = {
+		Lua = {
+			runtime = {
+				-- Tell the language server which version of Lua you're using
+				-- (most likely LuaJIT in the case of Neovim)
+				version = "LuaJIT",
+			},
+			diagnostics = {
+				-- Get the language server to recognize the `vim` global
+				globals = {
+					"vim",
+					"require",
+				},
+			},
+			workspace = {
+				-- Make the server aware of Neovim runtime files
+				library = vim.api.nvim_get_runtime_file("", true),
+			},
+			-- Do not send telemetry data containing a randomized but unique identifier
+			telemetry = {
+				enable = false,
+			},
+		},
+	},
 })
+--require("lspconfig").lua_ls.setup(lua_opts)
+
+lsp_zero.preset("recommended")
 
 -- Fix Undefined global 'vim'
-lsp.configure("lua_ls", {
+lsp_zero.configure("lua_ls", {
 	settings = {
 		Lua = {
 			diagnostics = {
@@ -30,7 +44,35 @@ lsp.configure("lua_ls", {
 	},
 })
 
-lsp.configure("emmet_ls", {
+require("mason").setup({})
+require("mason-lspconfig").setup({
+	ensure_installed = {
+		"tsserver",
+		"eslint",
+		"html",
+		"cssls",
+		"lua_ls",
+		"cssmodules_ls",
+		"rust_analyzer",
+		"sqlls",
+		"tailwindcss",
+		"jsonls",
+		"emmet_ls",
+	},
+	handlers = {
+		-- this first function is the "default handler"
+		-- it applies to every language server without a "custom handler"
+		function(server_name)
+			require("lspconfig")[server_name].setup({})
+		end,
+
+		-- this is the "custom handler" for `jdtls`
+		-- noop is an empty function that doesn't do anything
+		jdtls = lsp_zero.noop,
+	},
+})
+
+lsp_zero.configure("emmet_ls", {
 	filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less" },
 	init_options = {
 		html = {
@@ -43,6 +85,8 @@ lsp.configure("emmet_ls", {
 })
 
 local cmp = require("cmp")
+local cmp_action = require("lsp-zero").cmp_action()
+
 cmp.setup({
 	sources = {
 		{ name = "path" },
@@ -50,62 +94,89 @@ cmp.setup({
 		{ name = "buffer", keyword_length = 3 },
 		{ name = "luasnip", keyword_length = 2 },
 	},
+	mapping = cmp.mapping.preset.insert({
+		-- `Enter` key to confirm completion
+		["<CR>"] = cmp.mapping.confirm({ select = false }),
+
+		-- Ctrl+Space to trigger completion menu
+		["<C-Space>"] = cmp.mapping.complete(),
+
+		-- Navigate between snippet placeholder
+		["<C-n>"] = cmp_action.luasnip_jump_forward(),
+		["<C-p>"] = cmp_action.luasnip_jump_backward(),
+
+		-- Scroll up and down in the completion documentation
+		["<C-u>"] = cmp.mapping.scroll_docs(-4),
+		["<C-d>"] = cmp.mapping.scroll_docs(4),
+	}),
+	snippet = {
+		expand = function(args)
+			require("luasnip").lsp_expand(args.body)
+		end,
+	},
 })
 
-local cmp_select = { behavior = cmp.SelectBehavior.Select }
-local cmp_mappings = lsp.defaults.cmp_mappings({
-	["<C-p>"] = cmp.mapping.select_prev_item(cmp_select),
-	["<C-n>"] = cmp.mapping.select_next_item(cmp_select),
-	["<C-y>"] = cmp.mapping.confirm({ select = true }),
-	["<C-Space>"] = cmp.mapping.complete(),
-})
-
--- disable completion with tab
--- this helps with copilot setup
-cmp_mappings["<Tab>"] = nil
-cmp_mappings["<S-Tab>"] = nil
-
-lsp.setup_nvim_cmp({
-	mapping = cmp_mappings,
-})
-
-lsp.configure("tsserver", {
+lsp_zero.configure("tsserver", {
 	flags = {
 		debounce_text_changes = 150,
 	},
 })
 
-lsp.set_preferences({
-	suggest_lsp_servers = false,
-	sign_icons = {
-		error = "E",
-		warn = "W",
-		hint = "H",
-		info = "I",
-	},
+lsp_zero.set_sign_icons({
+	error = "✘",
+	warn = "▲",
+	hint = "⚑",
+	info = "»",
 })
 
-lsp.on_attach(function(client, bufnr)
-	local opts = { buffer = bufnr, remap = false }
-
-	--if client.name == "eslint" then
-	--vim.cmd.LspStop("eslint")
-	--return
-	--end
-
-	if client.name == "volar" or client.name == "tsserver" then
+require("lspconfig").tsserver.setup({
+	on_init = function(client)
 		client.server_capabilities.documentFormattingProvider = false
 		client.server_capabilities.documentFormattingRangeProvider = false
-	end
+	end,
+})
 
-	if client.name == "cssmodules_ls" then
+require("lspconfig").volar.setup({
+	on_init = function(client)
+		client.server_capabilities.documentFormattingProvider = false
+		client.server_capabilities.documentFormattingRangeProvider = false
+	end,
+})
+
+require("lspconfig").cssmodules_ls.setup({
+	on_init = function(client)
 		client.server_capabilities.definitionProvider = false
-	end
+	end,
+})
 
-	if client.name == "cssls" then
+require("lspconfig").cssls.setup({
+	on_init = function(client)
+		client.server_capabilities.definitionProvider = false
 		local capabilities = vim.lsp.protocol.make_client_capabilities()
 		capabilities.textDocument.completion.completionItem.snippetSupport = true
-	end
+	end,
+})
+
+require("lsp_signature").setup({
+	bind = true, -- This is mandatory, otherwise border config won't get registered.
+	handler_opts = {
+		border = "single",
+	},
+	shadow_guibg = "Green",
+	shadow_blend = 36,
+	transparency = 30,
+})
+
+vim.diagnostic.config({
+	signs = true,
+	virtual_text = true,
+})
+
+--lsp_zero.setup()
+
+lsp_zero.on_attach(function(client, bufnr)
+	local opts = { buffer = bufnr, remap = true }
+	lsp_zero.default_keymaps({ buffer = bufnr })
 
 	vim.keymap.set("n", "gd", ":Lspsaga goto_definition<CR>", opts)
 	vim.keymap.set("n", "gr", ":Lspsaga finder<CR>", opts)
@@ -123,37 +194,3 @@ lsp.on_attach(function(client, bufnr)
 	vim.keymap.set("n", "<leader>ln", ":Lspsaga rename<CR>", opts)
 	vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts)
 end)
-
---local null_ls = require("null-ls")
-
--- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/formatting
---local formatting = null_ls.builtins.formatting
--- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/diagnostics
---local diagnostics = null_ls.builtins.diagnostics
-
---null_ls.setup({
---debug = false,
---sources = {
---formatting.prettier,
---formatting.black.with({ extra_args = { "--fast" } }),
---formatting.stylua,
---formatting.sql_formatter,
---diagnostics.flake8,
---},
---})
-
-lsp.setup()
-
-vim.diagnostic.config({
-	virtual_text = true,
-})
-
-require("lsp_signature").setup({
-	bind = true, -- This is mandatory, otherwise border config won't get registered.
-	handler_opts = {
-		border = "single",
-	},
-	shadow_guibg = "Green",
-	shadow_blend = 36,
-	transparency = 30,
-})
