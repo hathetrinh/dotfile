@@ -1,5 +1,6 @@
 local keymap = vim.api.nvim_set_keymap
 local opts = { noremap = true, silent = true }
+
 keymap("i", "<c-j>", "<cmd>lua require'luasnip'.jump(1)<CR>", opts)
 keymap("s", "<c-j>", "<cmd>lua require'luasnip'.jump(1)<CR>", opts)
 keymap("i", "<c-k>", "<cmd>lua require'luasnip'.jump(-1)<CR>", opts)
@@ -8,11 +9,15 @@ keymap("s", "<c-k>", "<cmd>lua require'luasnip'.jump(-1)<CR>", opts)
 if opts then
 	require("luasnip").config.setup(opts)
 end
+
 vim.tbl_map(function(type)
 	require("luasnip.loaders.from_" .. type).lazy_load()
 end, { "vscode", "snipmate", "lua" })
+
 -- friently-snippets - enable standardized comments snippets
 require("luasnip").filetype_extend("typescript", { "tsdoc" })
+require("luasnip").filetype_extend("typescriptreact", { "tsdoc", "html" })
+require("luasnip").filetype_extend("javascriptreact", { "jsdoc", "html" })
 require("luasnip").filetype_extend("javascript", { "jsdoc" })
 require("luasnip").filetype_extend("lua", { "luadoc" })
 require("luasnip").filetype_extend("python", { "python-docstring" })

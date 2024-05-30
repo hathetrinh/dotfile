@@ -1,49 +1,6 @@
 local lsp_zero = require("lsp-zero")
 
---local lua_opts = lsp_zero.nvim_lua_ls()
-local lspconfig = require("lspconfig")
-
-lspconfig.lua_ls.setup({
-	settings = {
-		Lua = {
-			runtime = {
-				-- Tell the language server which version of Lua you're using
-				-- (most likely LuaJIT in the case of Neovim)
-				version = "LuaJIT",
-			},
-			diagnostics = {
-				-- Get the language server to recognize the `vim` global
-				globals = {
-					"vim",
-					"require",
-				},
-			},
-			workspace = {
-				-- Make the server aware of Neovim runtime files
-				library = vim.api.nvim_get_runtime_file("", true),
-			},
-			-- Do not send telemetry data containing a randomized but unique identifier
-			telemetry = {
-				enable = false,
-			},
-		},
-	},
-})
---require("lspconfig").lua_ls.setup(lua_opts)
-
-lsp_zero.preset("recommended")
-
--- Fix Undefined global 'vim'
-lsp_zero.configure("lua_ls", {
-	settings = {
-		Lua = {
-			diagnostics = {
-				globals = { "vim" },
-			},
-		},
-	},
-})
-
+--configuration lsp server
 require("mason").setup({})
 require("mason-lspconfig").setup({
 	ensure_installed = {
@@ -58,6 +15,7 @@ require("mason-lspconfig").setup({
 		"tailwindcss",
 		"jsonls",
 		"emmet_ls",
+		"jdtls",
 	},
 	handlers = {
 		-- this first function is the "default handler"
@@ -72,7 +30,68 @@ require("mason-lspconfig").setup({
 	},
 })
 
-lsp_zero.configure("emmet_ls", {
+local lspconfig = require("lspconfig")
+
+--require("java").setup()
+lspconfig.jdtls.setup({
+	settings = {
+		java = {
+			configuration = {
+				runtimes = {
+					{
+						name = "JavaSE-17",
+						path = "/Users/ttha/Development/cde/java17/",
+						default = true,
+					},
+				},
+			},
+		},
+	},
+})
+
+lspconfig.lua_ls.setup({
+	settings = {
+		Lua = {
+			diagnostics = {
+				-- Get the language server to recognize the `vim` global
+				globals = {
+					"vim",
+					"require",
+				},
+			},
+		},
+	},
+})
+
+lspconfig.tsserver.setup({
+	on_init = function(client)
+		client.server_capabilities.documentFormattingProvider = false
+		client.server_capabilities.documentFormattingRangeProvider = false
+	end,
+})
+
+lspconfig.volar.setup({
+	on_init = function(client)
+		client.server_capabilities.documentFormattingProvider = false
+		client.server_capabilities.documentFormattingRangeProvider = false
+	end,
+})
+
+lspconfig.cssmodules_ls.setup({
+	on_init = function(client)
+		client.server_capabilities.definitionProvider = false
+	end,
+})
+
+lspconfig.cssls.setup({
+	on_init = function(client)
+		client.server_capabilities.definitionProvider = false
+		local capabilities = vim.lsp.protocol.make_client_capabilities()
+		capabilities.textDocument.completion.completionItem.snippetSupport = true
+	end,
+})
+
+lspconfig.emmet_ls.setup({
 	filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less" },
 	init_options = {
 		html = {
@@ -84,41 +103,31 @@ lsp_zero.configure("emmet_ls", {
 	},
 })
 
+lsp_zero.preset("recommended")
+
 local cmp = require("cmp")
-local cmp_action = require("lsp-zero").cmp_action()
+local cmp_select = { behavior = cmp.SelectBehavior.Select }
 
 cmp.setup({
-	sources = {
+	sources = cmp.config.sources({
 		{ name = "path" },
 		{ name = "nvim_lsp" },
-		{ name = "buffer", keyword_length = 3 },
-		{ name = "luasnip", keyword_length = 2 },
-	},
-	mapping = cmp.mapping.preset.insert({
-		-- `Enter` key to confirm completion
-		["<CR>"] = cmp.mapping.confirm({ select = false }),
-
-		-- Ctrl+Space to trigger completion menu
-		["<C-Space>"] = cmp.mapping.complete(),
-
-		-- Navigate between snippet placeholder
-		["<C-n>"] = cmp_action.luasnip_jump_forward(),
-		["<C-p>"] = cmp_action.luasnip_jump_backward(),
-
+		{ name = "luasnip", option = { show_autosnippets = true } },
+		{ name = "buffer" },
+	}),
+	mapping = {
+		["<C-p>"] = cmp.mapping.select_prev_item(cmp_select),
+		["<C-n>"] = cmp.mapping.select_next_item(cmp_select),
+		["<C-y>"] = cmp.mapping.confirm({ select = true }),
+		["<CR>"] = cmp.mapping.confirm({ select = true }),
 		-- Scroll up and down in the completion documentation
 		["<C-u>"] = cmp.mapping.scroll_docs(-4),
 		["<C-d>"] = cmp.mapping.scroll_docs(4),
-	}),
+	},
 	snippet = {
 		expand = function(args)
 			require("luasnip").lsp_expand(args.body)
 		end,
-	},
-})
-
-lsp_zero.configure("tsserver", {
-	flags = {
-		debounce_text_changes = 150,
 	},
 })
 
@@ -127,34 +136,6 @@ lsp_zero.set_sign_icons({
 	warn = "▲",
 	hint = "⚑",
 	info = "»",
-})
-
-require("lspconfig").tsserver.setup({
-	on_init = function(client)
-		client.server_capabilities.documentFormattingProvider = false
-		client.server_capabilities.documentFormattingRangeProvider = false
-	end,
-})
-
-require("lspconfig").volar.setup({
-	on_init = function(client)
-		client.server_capabilities.documentFormattingProvider = false
-		client.server_capabilities.documentFormattingRangeProvider = false
-	end,
-})
-
-require("lspconfig").cssmodules_ls.setup({
-	on_init = function(client)
-		client.server_capabilities.definitionProvider = false
-	end,
-})
-
-require("lspconfig").cssls.setup({
-	on_init = function(client)
-		client.server_capabilities.definitionProvider = false
-		local capabilities = vim.lsp.protocol.make_client_capabilities()
-		capabilities.textDocument.completion.completionItem.snippetSupport = true
-	end,
 })
 
 require("lsp_signature").setup({

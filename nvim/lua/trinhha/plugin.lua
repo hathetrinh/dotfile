@@ -77,37 +77,13 @@ return require("packer").startup(function(use)
 			-- Snippets
 			{
 				"L3MON4D3/LuaSnip",
-				build = vim.fn.has("win32") ~= 0
-						and "echo 'NOTE: jsregexp is optional, so not a big deal if it fails to build\n'; make install_jsregexp"
-					or nil,
-				dependencies = {
-					"zeioth/friendly-snippets", -- change to rafamadriz once all is merged
-					"benfowler/telescope-luasnip.nvim",
+				tag = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+				-- install jsregexp (optional!:).
+				run = "make install_jsregexp",
+				requires = {
+					{ "rafamadriz/friendly-snippets" },
 				},
-				config = function(_, opts)
-					if opts then
-						require("luasnip").config.setup(opts)
-					end
-					vim.tbl_map(function(type)
-						require("luasnip.loaders.from_" .. type).lazy_load()
-					end, { "vscode", "snipmate", "lua" })
-					-- friently-snippets - enable standardized comments snippets
-					require("luasnip").filetype_extend("typescript", { "tsdoc" })
-					require("luasnip").filetype_extend("javascript", { "jsdoc" })
-					require("luasnip").filetype_extend("lua", { "luadoc" })
-					require("luasnip").filetype_extend("python", { "python-docstring" })
-					require("luasnip").filetype_extend("rust", { "rustdoc" })
-					require("luasnip").filetype_extend("cs", { "csharpdoc" })
-					require("luasnip").filetype_extend("java", { "javadoc" })
-					require("luasnip").filetype_extend("sh", { "shelldoc" })
-					require("luasnip").filetype_extend("c", { "cdoc" })
-					require("luasnip").filetype_extend("cpp", { "cppdoc" })
-					require("luasnip").filetype_extend("php", { "phpdoc" })
-					require("luasnip").filetype_extend("kotlin", { "kdoc" })
-					require("luasnip").filetype_extend("ruby", { "rdoc" })
-				end,
 			},
-			{ "rafamadriz/friendly-snippets" },
 			{ "benfowler/telescope-luasnip.nvim" },
 		},
 	})
@@ -228,6 +204,37 @@ return require("packer").startup(function(use)
 
 	--use("mfussenegger/nvim-jdtls")
 	use("ray-x/lsp_signature.nvim")
+
+	use({
+		"nvim-java/nvim-java",
+		tag = "v1.5.1",
+		requires = {
+			"nvim-java/lua-async-await",
+			"nvim-java/nvim-java-refactor",
+			"nvim-java/nvim-java-core",
+			"nvim-java/nvim-java-test",
+			"nvim-java/nvim-java-dap",
+			"MunifTanjim/nui.nvim",
+			"neovim/nvim-lspconfig",
+			"mfussenegger/nvim-dap",
+			{
+				"williamboman/mason.nvim",
+				opts = {
+					registries = {
+						"github:nvim-java/mason-registry",
+						"github:mason-org/mason-registry",
+					},
+				},
+			},
+		},
+	})
+
+	use({
+		"eatgrass/maven.nvim",
+		requires = {
+			"nvim-lua/plenary.nvim",
+		},
+	})
 
 	if packer_bootstrap then
 		require("packer").sync()
