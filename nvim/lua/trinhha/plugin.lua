@@ -110,7 +110,7 @@ return require("packer").startup(function(use)
 
 	use("folke/zen-mode.nvim")
 
-	use("github/copilot.vim")
+	--use("github/copilot.vim")
 
 	use({
 		"nvim-tree/nvim-tree.lua",
@@ -236,6 +236,38 @@ return require("packer").startup(function(use)
 		},
 	})
 
+	--use({
+	--"jackMort/ChatGPT.nvim",
+	--requires = {
+	--"MunifTanjim/nui.nvim",
+	--"nvim-lua/plenary.nvim",
+	--"nvim-telescope/telescope.nvim",
+	--},
+	--})
+
+	use({
+		"Exafunction/codeium.nvim",
+		requires = {
+			"nvim-lua/plenary.nvim",
+			"hrsh7th/nvim-cmp",
+		},
+	})
+
+	use({
+		"ThePrimeagen/refactoring.nvim",
+		requires = {
+			{ "nvim-lua/plenary.nvim" },
+			{ "nvim-treesitter/nvim-treesitter" },
+		},
+	})
+
+	use({
+		"pmizio/typescript-tools.nvim",
+		requires = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+		config = function()
+			require("typescript-tools").setup({})
+		end,
+	})
 	if packer_bootstrap then
 		require("packer").sync()
 	end

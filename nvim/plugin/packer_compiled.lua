@@ -105,6 +105,12 @@ _G.packer_plugins = {
     path = "/Users/ttha/.local/share/nvim/site/pack/packer/start/cmp_luasnip",
     url = "https://github.com/saadparwaiz1/cmp_luasnip"
   },
+  ["conform.nvim"] = {
+    config = { "\27LJ\2\n5\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\fconform\frequire\0" },
+    loaded = true,
+    path = "/Users/ttha/.local/share/nvim/site/pack/packer/start/conform.nvim",
+    url = "https://github.com/stevearc/conform.nvim"
+  },
   ["copilot.vim"] = {
     loaded = true,
     path = "/Users/ttha/.local/share/nvim/site/pack/packer/start/copilot.vim",
@@ -163,6 +169,11 @@ _G.packer_plugins = {
     path = "/Users/ttha/.local/share/nvim/site/pack/packer/start/lspsaga.nvim",
     url = "https://github.com/nvimdev/lspsaga.nvim"
   },
+  ["lua-async-await"] = {
+    loaded = true,
+    path = "/Users/ttha/.local/share/nvim/site/pack/packer/start/lua-async-await",
+    url = "https://github.com/nvim-java/lua-async-await"
+  },
   ["lualine.nvim"] = {
     loaded = true,
     path = "/Users/ttha/.local/share/nvim/site/pack/packer/start/lualine.nvim",
@@ -190,10 +201,10 @@ _G.packer_plugins = {
     path = "/Users/ttha/.local/share/nvim/site/pack/packer/start/nerdcommenter",
     url = "https://github.com/preservim/nerdcommenter"
   },
-  ["null-ls.nvim"] = {
+  ["nui.nvim"] = {
     loaded = true,
-    path = "/Users/ttha/.local/share/nvim/site/pack/packer/start/null-ls.nvim",
-    url = "https://github.com/jose-elias-alvarez/null-ls.nvim"
+    path = "/Users/ttha/.local/share/nvim/site/pack/packer/start/nui.nvim",
+    url = "https://github.com/MunifTanjim/nui.nvim"
   },
   ["nvim-asciidoc-preview"] = {
     loaded = true,
@@ -230,6 +241,31 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/ttha/.local/share/nvim/site/pack/packer/start/nvim-dap-vscode-js",
     url = "https://github.com/mxsdev/nvim-dap-vscode-js"
+  },
+  ["nvim-java"] = {
+    loaded = true,
+    path = "/Users/ttha/.local/share/nvim/site/pack/packer/start/nvim-java",
+    url = "https://github.com/nvim-java/nvim-java"
+  },
+  ["nvim-java-core"] = {
+    loaded = true,
+    path = "/Users/ttha/.local/share/nvim/site/pack/packer/start/nvim-java-core",
+    url = "https://github.com/nvim-java/nvim-java-core"
+  },
+  ["nvim-java-dap"] = {
+    loaded = true,
+    path = "/Users/ttha/.local/share/nvim/site/pack/packer/start/nvim-java-dap",
+    url = "https://github.com/nvim-java/nvim-java-dap"
+  },
+  ["nvim-java-refactor"] = {
+    loaded = true,
+    path = "/Users/ttha/.local/share/nvim/site/pack/packer/start/nvim-java-refactor",
+    url = "https://github.com/nvim-java/nvim-java-refactor"
+  },
+  ["nvim-java-test"] = {
+    loaded = true,
+    path = "/Users/ttha/.local/share/nvim/site/pack/packer/start/nvim-java-test",
+    url = "https://github.com/nvim-java/nvim-java-test"
   },
   ["nvim-lspconfig"] = {
     loaded = true,
@@ -285,6 +321,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/ttha/.local/share/nvim/site/pack/packer/start/telescope-dap.nvim",
     url = "https://github.com/nvim-telescope/telescope-dap.nvim"
+  },
+  ["telescope-fzf-native.nvim"] = {
+    loaded = true,
+    path = "/Users/ttha/.local/share/nvim/site/pack/packer/start/telescope-fzf-native.nvim",
+    url = "https://github.com/nvim-telescope/telescope-fzf-native.nvim"
   },
   ["telescope-luasnip.nvim"] = {
     loaded = true,
@@ -346,34 +387,38 @@ time([[Defining packer_plugins]], false)
 time([[Setup for markdown-preview.nvim]], true)
 try_loadstring("\27LJ\2\n=\0\0\2\0\4\0\0056\0\0\0009\0\1\0005\1\3\0=\1\2\0K\0\1\0\1\2\0\0\rmarkdown\19mkdp_filetypes\6g\bvim\0", "setup", "markdown-preview.nvim")
 time([[Setup for markdown-preview.nvim]], false)
--- Config for: tokyodark.nvim
-time([[Config for tokyodark.nvim]], true)
-try_loadstring("\27LJ\2\n;\0\2\5\0\3\0\a6\2\0\0'\4\1\0B\2\2\0029\2\2\2\18\4\1\0B\2\2\1K\0\1\0\nsetup\14tokyodark\frequire\0", "config", "tokyodark.nvim")
-time([[Config for tokyodark.nvim]], false)
--- Config for: LuaSnip
-time([[Config for LuaSnip]], true)
-try_loadstring("\27LJ\2\nO\0\1\5\0\3\0\b6\1\0\0'\3\1\0\18\4\0\0&\3\4\3B\1\2\0029\1\2\1B\1\1\1K\0\1\0\14lazy_load\26luasnip.loaders.from_\frequireà\5\1\2\6\0#\0j\15\0\1\0X\2\a€6\2\0\0'\4\1\0B\2\2\0029\2\2\0029\2\3\2\18\4\1\0B\2\2\0016\2\4\0009\2\5\0023\4\6\0005\5\a\0B\2\3\0016\2\0\0'\4\1\0B\2\2\0029\2\b\2'\4\t\0005\5\n\0B\2\3\0016\2\0\0'\4\1\0B\2\2\0029\2\b\2'\4\v\0005\5\f\0B\2\3\0016\2\0\0'\4\1\0B\2\2\0029\2\b\2'\4\r\0005\5\14\0B\2\3\0016\2\0\0'\4\1\0B\2\2\0029\2\b\2'\4\15\0005\5\16\0B\2\3\0016\2\0\0'\4\1\0B\2\2\0029\2\b\2'\4\17\0005\5\18\0B\2\3\0016\2\0\0'\4\1\0B\2\2\0029\2\b\2'\4\19\0005\5\20\0B\2\3\0016\2\0\0'\4\1\0B\2\2\0029\2\b\2'\4\21\0005\5\22\0B\2\3\0016\2\0\0'\4\1\0B\2\2\0029\2\b\2'\4\23\0005\5\24\0B\2\3\0016\2\0\0'\4\1\0B\2\2\0029\2\b\2'\4\25\0005\5\26\0B\2\3\0016\2\0\0'\4\1\0B\2\2\0029\2\b\2'\4\27\0005\5\28\0B\2\3\0016\2\0\0'\4\1\0B\2\2\0029\2\b\2'\4\29\0005\5\30\0B\2\3\0016\2\0\0'\4\1\0B\2\2\0029\2\b\2'\4\31\0005\5 \0B\2\3\0016\2\0\0'\4\1\0B\2\2\0029\2\b\2'\4!\0005\5\"\0B\2\3\1K\0\1\0\1\2\0\0\trdoc\truby\1\2\0\0\tkdoc\vkotlin\1\2\0\0\vphpdoc\bphp\1\2\0\0\vcppdoc\bcpp\1\2\0\0\tcdoc\6c\1\2\0\0\rshelldoc\ash\1\2\0\0\fjavadoc\tjava\1\2\0\0\14csharpdoc\acs\1\2\0\0\frustdoc\trust\1\2\0\0\21python-docstring\vpython\1\2\0\0\vluadoc\blua\1\2\0\0\njsdoc\15javascript\1\2\0\0\ntsdoc\15typescript\20filetype_extend\1\4\0\0\vvscode\rsnipmate\blua\0\ftbl_map\bvim\nsetup\vconfig\fluasnip\frequire\0", "config", "LuaSnip")
-time([[Config for LuaSnip]], false)
--- Config for: nvim-autopairs
-time([[Config for nvim-autopairs]], true)
-try_loadstring("\27LJ\2\n@\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\19nvim-autopairs\frequire\0", "config", "nvim-autopairs")
-time([[Config for nvim-autopairs]], false)
--- Config for: lspsaga.nvim
-time([[Config for lspsaga.nvim]], true)
-try_loadstring("\27LJ\2\n9\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\flspsaga\frequire\0", "config", "lspsaga.nvim")
-time([[Config for lspsaga.nvim]], false)
 -- Config for: hop.nvim
 time([[Config for hop.nvim]], true)
 try_loadstring("\27LJ\2\nU\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0B\0\2\1K\0\1\0\1\0\1\tkeys\28etovxqpdygfblzhckisuran\nsetup\bhop\frequire\0", "config", "hop.nvim")
 time([[Config for hop.nvim]], false)
--- Config for: gruvbox
-time([[Config for gruvbox]], true)
-try_loadstring("\27LJ\2\n7\0\0\3\0\3\0\0056\0\0\0009\0\1\0'\2\2\0B\0\2\1K\0\1\0\24colorscheme gruvbox\bcmd\bvim\0", "config", "gruvbox")
-time([[Config for gruvbox]], false)
+-- Config for: conform.nvim
+time([[Config for conform.nvim]], true)
+try_loadstring("\27LJ\2\n5\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\fconform\frequire\0", "config", "conform.nvim")
+time([[Config for conform.nvim]], false)
+-- Config for: nvim-autopairs
+time([[Config for nvim-autopairs]], true)
+try_loadstring("\27LJ\2\n@\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\19nvim-autopairs\frequire\0", "config", "nvim-autopairs")
+time([[Config for nvim-autopairs]], false)
 -- Config for: toggleterm.nvim
 time([[Config for toggleterm.nvim]], true)
 try_loadstring("\27LJ\2\n8\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\15toggleterm\frequire\0", "config", "toggleterm.nvim")
 time([[Config for toggleterm.nvim]], false)
+-- Config for: lspsaga.nvim
+time([[Config for lspsaga.nvim]], true)
+try_loadstring("\27LJ\2\n9\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\flspsaga\frequire\0", "config", "lspsaga.nvim")
+time([[Config for lspsaga.nvim]], false)
+-- Config for: tokyodark.nvim
+time([[Config for tokyodark.nvim]], true)
+try_loadstring("\27LJ\2\n;\0\2\5\0\3\0\a6\2\0\0'\4\1\0B\2\2\0029\2\2\2\18\4\1\0B\2\2\1K\0\1\0\nsetup\14tokyodark\frequire\0", "config", "tokyodark.nvim")
+time([[Config for tokyodark.nvim]], false)
+-- Config for: gruvbox
+time([[Config for gruvbox]], true)
+try_loadstring("\27LJ\2\n7\0\0\3\0\3\0\0056\0\0\0009\0\1\0'\2\2\0B\0\2\1K\0\1\0\24colorscheme gruvbox\bcmd\bvim\0", "config", "gruvbox")
+time([[Config for gruvbox]], false)
+-- Config for: LuaSnip
+time([[Config for LuaSnip]], true)
+try_loadstring("\27LJ\2\nO\0\1\5\0\3\0\b6\1\0\0'\3\1\0\18\4\0\0&\3\4\3B\1\2\0029\1\2\1B\1\1\1K\0\1\0\14lazy_load\26luasnip.loaders.from_\frequireà\5\1\2\6\0#\0j\15\0\1\0X\2\a€6\2\0\0'\4\1\0B\2\2\0029\2\2\0029\2\3\2\18\4\1\0B\2\2\0016\2\4\0009\2\5\0023\4\6\0005\5\a\0B\2\3\0016\2\0\0'\4\1\0B\2\2\0029\2\b\2'\4\t\0005\5\n\0B\2\3\0016\2\0\0'\4\1\0B\2\2\0029\2\b\2'\4\v\0005\5\f\0B\2\3\0016\2\0\0'\4\1\0B\2\2\0029\2\b\2'\4\r\0005\5\14\0B\2\3\0016\2\0\0'\4\1\0B\2\2\0029\2\b\2'\4\15\0005\5\16\0B\2\3\0016\2\0\0'\4\1\0B\2\2\0029\2\b\2'\4\17\0005\5\18\0B\2\3\0016\2\0\0'\4\1\0B\2\2\0029\2\b\2'\4\19\0005\5\20\0B\2\3\0016\2\0\0'\4\1\0B\2\2\0029\2\b\2'\4\21\0005\5\22\0B\2\3\0016\2\0\0'\4\1\0B\2\2\0029\2\b\2'\4\23\0005\5\24\0B\2\3\0016\2\0\0'\4\1\0B\2\2\0029\2\b\2'\4\25\0005\5\26\0B\2\3\0016\2\0\0'\4\1\0B\2\2\0029\2\b\2'\4\27\0005\5\28\0B\2\3\0016\2\0\0'\4\1\0B\2\2\0029\2\b\2'\4\29\0005\5\30\0B\2\3\0016\2\0\0'\4\1\0B\2\2\0029\2\b\2'\4\31\0005\5 \0B\2\3\0016\2\0\0'\4\1\0B\2\2\0029\2\b\2'\4!\0005\5\"\0B\2\3\1K\0\1\0\1\2\0\0\trdoc\truby\1\2\0\0\tkdoc\vkotlin\1\2\0\0\vphpdoc\bphp\1\2\0\0\vcppdoc\bcpp\1\2\0\0\tcdoc\6c\1\2\0\0\rshelldoc\ash\1\2\0\0\fjavadoc\tjava\1\2\0\0\14csharpdoc\acs\1\2\0\0\frustdoc\trust\1\2\0\0\21python-docstring\vpython\1\2\0\0\vluadoc\blua\1\2\0\0\njsdoc\15javascript\1\2\0\0\ntsdoc\15typescript\20filetype_extend\1\4\0\0\vvscode\rsnipmate\blua\0\ftbl_map\bvim\nsetup\vconfig\fluasnip\frequire\0", "config", "LuaSnip")
+time([[Config for LuaSnip]], false)
 vim.cmd [[augroup packer_load_aucmds]]
 vim.cmd [[au!]]
   -- Filetype lazy-loads

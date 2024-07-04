@@ -1,3 +1,4 @@
+--require("java").setup()
 local lsp_zero = require("lsp-zero")
 
 --configuration lsp server
@@ -32,7 +33,6 @@ require("mason-lspconfig").setup({
 
 local lspconfig = require("lspconfig")
 
---require("java").setup()
 lspconfig.jdtls.setup({
 	settings = {
 		java = {
@@ -110,6 +110,7 @@ local cmp_select = { behavior = cmp.SelectBehavior.Select }
 
 cmp.setup({
 	sources = cmp.config.sources({
+		{ name = "codeium" },
 		{ name = "path" },
 		{ name = "nvim_lsp" },
 		{ name = "luasnip", option = { show_autosnippets = true } },
