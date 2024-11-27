@@ -198,6 +198,16 @@ return require("packer").startup(function(use)
 
 	use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" } })
 
+	use({
+		"nvim-neotest/neotest",
+		requires = {
+			"nvim-neotest/nvim-nio",
+			"nvim-lua/plenary.nvim",
+			"antoinemadec/FixCursorHold.nvim",
+			"nvim-treesitter/nvim-treesitter",
+		},
+	})
+
 	use("nvim-telescope/telescope-dap.nvim")
 
 	use("ThePrimeagen/git-worktree.nvim")
@@ -205,29 +215,29 @@ return require("packer").startup(function(use)
 	--use("mfussenegger/nvim-jdtls")
 	use("ray-x/lsp_signature.nvim")
 
-	use({
-		"nvim-java/nvim-java",
-		tag = "v1.5.1",
-		requires = {
-			"nvim-java/lua-async-await",
-			"nvim-java/nvim-java-refactor",
-			"nvim-java/nvim-java-core",
-			"nvim-java/nvim-java-test",
-			"nvim-java/nvim-java-dap",
-			"MunifTanjim/nui.nvim",
-			"neovim/nvim-lspconfig",
-			"mfussenegger/nvim-dap",
-			{
-				"williamboman/mason.nvim",
-				opts = {
-					registries = {
-						"github:nvim-java/mason-registry",
-						"github:mason-org/mason-registry",
-					},
-				},
-			},
-		},
-	})
+	--use({
+	--"nvim-java/nvim-java",
+	--tag = "v1.8.0",
+	--requires = {
+	--"nvim-java/lua-async-await",
+	--"nvim-java/nvim-java-refactor",
+	--"nvim-java/nvim-java-core",
+	--"nvim-java/nvim-java-test",
+	--"nvim-java/nvim-java-dap",
+	--"MunifTanjim/nui.nvim",
+	--"neovim/nvim-lspconfig",
+	--"mfussenegger/nvim-dap",
+	--{
+	--"williamboman/mason.nvim",
+	--opts = {
+	--registries = {
+	--"github:nvim-java/mason-registry",
+	--"github:mason-org/mason-registry",
+	--},
+	--},
+	--},
+	--},
+	--})
 
 	use({
 		"eatgrass/maven.nvim",
@@ -235,15 +245,6 @@ return require("packer").startup(function(use)
 			"nvim-lua/plenary.nvim",
 		},
 	})
-
-	--use({
-	--"jackMort/ChatGPT.nvim",
-	--requires = {
-	--"MunifTanjim/nui.nvim",
-	--"nvim-lua/plenary.nvim",
-	--"nvim-telescope/telescope.nvim",
-	--},
-	--})
 
 	use({
 		"Exafunction/codeium.nvim",
@@ -268,6 +269,9 @@ return require("packer").startup(function(use)
 			require("typescript-tools").setup({})
 		end,
 	})
+
+	use("vim-test/vim-test")
+
 	if packer_bootstrap then
 		require("packer").sync()
 	end

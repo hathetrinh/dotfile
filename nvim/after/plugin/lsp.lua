@@ -110,9 +110,9 @@ local cmp_select = { behavior = cmp.SelectBehavior.Select }
 
 cmp.setup({
 	sources = cmp.config.sources({
-		{ name = "codeium" },
 		{ name = "path" },
 		{ name = "nvim_lsp" },
+		{ name = "codeium" },
 		{ name = "luasnip", option = { show_autosnippets = true } },
 		{ name = "buffer" },
 	}),

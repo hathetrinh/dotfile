@@ -73,3 +73,5 @@ vim.keymap.set("t", "jk", "<C-\\><C-n>", opts)
 vim.keymap.set("n", "<leader>vt", ":vsplit term://zsh<CR>", opt)
 vim.keymap.set("n", "<leader>ht", ":split term://zsh<CR>", opt)
 vim.keymap.set("n", "<C-t>", ":Lspsaga term_toggle<CR>", opt)
+
+vim.keymap.set("n", "<leader>tsw", ":Tsw rt=node show_variables=false show_order=false<cr>", opt)
