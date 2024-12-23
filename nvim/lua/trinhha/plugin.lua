@@ -215,29 +215,24 @@ return require("packer").startup(function(use)
 	--use("mfussenegger/nvim-jdtls")
 	use("ray-x/lsp_signature.nvim")
 
-	--use({
-	--"nvim-java/nvim-java",
-	--tag = "v1.8.0",
-	--requires = {
-	--"nvim-java/lua-async-await",
-	--"nvim-java/nvim-java-refactor",
-	--"nvim-java/nvim-java-core",
-	--"nvim-java/nvim-java-test",
-	--"nvim-java/nvim-java-dap",
-	--"MunifTanjim/nui.nvim",
-	--"neovim/nvim-lspconfig",
-	--"mfussenegger/nvim-dap",
-	--{
-	--"williamboman/mason.nvim",
-	--opts = {
-	--registries = {
-	--"github:nvim-java/mason-registry",
-	--"github:mason-org/mason-registry",
-	--},
-	--},
-	--},
-	--},
-	--})
+	use({
+		"nvim-java/nvim-java",
+		tag = "v2.0.1",
+		requires = {
+			"nvim-java/lua-async-await",
+			"nvim-java/nvim-java-refactor",
+			"nvim-java/nvim-java-core",
+			"nvim-java/nvim-java-test",
+			"nvim-java/nvim-java-dap",
+			"MunifTanjim/nui.nvim",
+			"neovim/nvim-lspconfig",
+			"mfussenegger/nvim-dap",
+			{
+				"JavaHello/spring-boot.nvim",
+				commit = "218c0c26c14d99feca778e4d13f5ec3e8b1b60f0",
+			},
+		},
+	})
 
 	use({
 		"eatgrass/maven.nvim",
@@ -262,13 +257,13 @@ return require("packer").startup(function(use)
 		},
 	})
 
-	use({
-		"pmizio/typescript-tools.nvim",
-		requires = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-		config = function()
-			require("typescript-tools").setup({})
-		end,
-	})
+	--use({
+	--"pmizio/typescript-tools.nvim",
+	--requires = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+	--config = function()
+	--require("typescript-tools").setup({})
+	--end,
+	--})
 
 	use("vim-test/vim-test")
 

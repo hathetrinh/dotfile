@@ -1,11 +1,14 @@
---require("java").setup()
-local lsp_zero = require("lsp-zero")
+-- configs lsp server
+require("mason").setup({
+	registries = {
+		"github:nvim-java/mason-registry",
+		"github:mason-org/mason-registry",
+	},
+})
 
---configuration lsp server
-require("mason").setup({})
 require("mason-lspconfig").setup({
 	ensure_installed = {
-		"tsserver",
+		"ts_ls",
 		"eslint",
 		"html",
 		"cssls",
@@ -16,7 +19,6 @@ require("mason-lspconfig").setup({
 		"tailwindcss",
 		"jsonls",
 		"emmet_ls",
-		"jdtls",
 	},
 	handlers = {
 		-- this first function is the "default handler"
@@ -27,27 +29,16 @@ require("mason-lspconfig").setup({
 
 		-- this is the "custom handler" for `jdtls`
 		-- noop is an empty function that doesn't do anything
-		jdtls = lsp_zero.noop,
+		--jdtls = lsp_zero.noop,
 	},
 })
+
+-- setups java
+require("java").setup()
 
 local lspconfig = require("lspconfig")
 
-lspconfig.jdtls.setup({
-	settings = {
-		java = {
-			configuration = {
-				runtimes = {
-					{
-						name = "JavaSE-17",
-						path = "/Users/ttha/Development/cde/java17/",
-						default = true,
-					},
-				},
-			},
-		},
-	},
-})
+lspconfig.jdtls.setup({})
 
 lspconfig.lua_ls.setup({
 	settings = {
@@ -63,7 +54,7 @@ lspconfig.lua_ls.setup({
 	},
 })
 
-lspconfig.tsserver.setup({
+lspconfig.ts_ls.setup({
 	on_init = function(client)
 		client.server_capabilities.documentFormattingProvider = false
 		client.server_capabilities.documentFormattingRangeProvider = false
@@ -103,8 +94,6 @@ lspconfig.emmet_ls.setup({
 	},
 })
 
-lsp_zero.preset("recommended")
-
 local cmp = require("cmp")
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
 
@@ -132,12 +121,11 @@ cmp.setup({
 	},
 })
 
-lsp_zero.set_sign_icons({
-	error = "✘",
-	warn = "▲",
-	hint = "⚑",
-	info = "»",
-})
+vim.opt.signcolumn = "yes"
+
+-- Add borders to floating windows
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
+vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
 
 require("lsp_signature").setup({
 	bind = true, -- This is mandatory, otherwise border config won't get registered.
@@ -154,25 +142,25 @@ vim.diagnostic.config({
 	virtual_text = true,
 })
 
---lsp_zero.setup()
+vim.api.nvim_create_autocmd("LspAttach", {
+	desc = "LSP actions",
+	callback = function(event)
+		local opts = { buffer = event.buf }
 
-lsp_zero.on_attach(function(client, bufnr)
-	local opts = { buffer = bufnr, remap = true }
-	lsp_zero.default_keymaps({ buffer = bufnr })
-
-	vim.keymap.set("n", "gd", ":Lspsaga goto_definition<CR>", opts)
-	vim.keymap.set("n", "gr", ":Lspsaga finder<CR>", opts)
-	vim.keymap.set("n", "gp", ":Lspsaga peek_definition<CR>", opts)
-	vim.keymap.set("n", "gi", ":Telescope lsp_implementations<CR>", opts)
-	vim.keymap.set("n", "gt", ":Telescope lsp_type_definitions<CR>", opts)
-	vim.keymap.set("n", "<leader>la", ":Lspsaga code_action<CR>", opts)
-	vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-	vim.keymap.set("n", "<C-k>", ":Lspsaga hover_doc<cr>", opts)
-	vim.keymap.set("n", "<leader>lw", vim.lsp.buf.workspace_symbol, opts)
-	vim.keymap.set("n", "<leader>ld", ":Telescope diagnostics<CR>", opts)
-	vim.keymap.set("n", "<leader>x", vim.diagnostic.goto_next, opts)
-	vim.keymap.set("n", "<leader>X", vim.diagnostic.goto_prev, opts)
-	vim.keymap.set("n", "<leader>lr", vim.lsp.buf.references, opts)
-	vim.keymap.set("n", "<leader>ln", ":Lspsaga rename<CR>", opts)
-	vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts)
-end)
+		vim.keymap.set("n", "gd", ":Lspsaga goto_definition<CR>", opts)
+		vim.keymap.set("n", "gr", ":Lspsaga finder<CR>", opts)
+		vim.keymap.set("n", "gp", ":Lspsaga peek_definition<CR>", opts)
+		vim.keymap.set("n", "gi", ":Telescope lsp_implementations<CR>", opts)
+		vim.keymap.set("n", "gt", ":Telescope lsp_type_definitions<CR>", opts)
+		vim.keymap.set("n", "<leader>la", ":Lspsaga code_action<CR>", opts)
+		vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+		vim.keymap.set("n", "<C-k>", ":Lspsaga hover_doc<cr>", opts)
+		vim.keymap.set("n", "<leader>lw", vim.lsp.buf.workspace_symbol, opts)
+		vim.keymap.set("n", "<leader>ld", ":Telescope diagnostics<CR>", opts)
+		vim.keymap.set("n", "<leader>x", vim.diagnostic.goto_next, opts)
+		vim.keymap.set("n", "<leader>X", vim.diagnostic.goto_prev, opts)
+		vim.keymap.set("n", "<leader>lr", vim.lsp.buf.references, opts)
+		vim.keymap.set("n", "<leader>ln", ":Lspsaga rename<CR>", opts)
+		vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts)
+	end,
+})
