@@ -19,6 +19,7 @@ require("mason-lspconfig").setup({
 		"tailwindcss",
 		"jsonls",
 		"emmet_ls",
+		"volar",
 	},
 	handlers = {
 		-- this first function is the "default handler"
@@ -38,7 +39,26 @@ require("java").setup()
 
 local lspconfig = require("lspconfig")
 
-lspconfig.jdtls.setup({})
+lspconfig.jdtls.setup({
+	settings = {
+		java = {
+			format = {
+				settings = {
+					url = vim.fn.stdpath("config") .. "/after/plugin/style/JavaIntellij.xml",
+				},
+			},
+			configuration = {
+				runtimes = {
+					{
+						name = "JavaSE-21",
+						path = "/Users/ttha/Development/cde/java21",
+						default = true,
+					},
+				},
+			},
+		},
+	},
+})
 
 lspconfig.lua_ls.setup({
 	settings = {
@@ -54,7 +74,42 @@ lspconfig.lua_ls.setup({
 	},
 })
 
+local mason_registry = require("mason-registry")
+local vue_language_server_path = mason_registry.get_package("vue-language-server"):get_install_path()
+	.. "/node_modules/@vue/language-server"
+
 lspconfig.ts_ls.setup({
+	filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
+	init_options = {
+		plugins = {
+			{
+				name = "@vue/typescript-plugin",
+				location = vue_language_server_path,
+				languages = {
+					"javascript",
+					"typescript",
+					"vue",
+				},
+			},
+		},
+	},
+	settings = {
+		typescript = {
+			tsserver = {
+				useSyntaxServer = false,
+			},
+			inlayHints = {
+				includeInlayParameterNameHints = "all",
+				includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+				includeInlayFunctionParameterTypeHints = true,
+				includeInlayVariableTypeHints = true,
+				includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+				includeInlayPropertyDeclarationTypeHints = true,
+				includeInlayFunctionLikeReturnTypeHints = true,
+				includeInlayEnumMemberValueHints = true,
+			},
+		},
+	},
 	on_init = function(client)
 		client.server_capabilities.documentFormattingProvider = false
 		client.server_capabilities.documentFormattingRangeProvider = false
@@ -62,6 +117,37 @@ lspconfig.ts_ls.setup({
 })
 
 lspconfig.volar.setup({
+	filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
+	init_options = {
+		vue = {
+			hybridMode = false,
+		},
+		typescript = {
+			tsdk = " /Users/ttha/Development/cde/node-v18.14.0-darwin-x64/lib/node_modules/typescript/bin",
+		},
+	},
+	settings = {
+		typescript = {
+			inlayHints = {
+				enumMemberValues = {
+					enabled = true,
+				},
+				functionLikeReturnTypes = {
+					enabled = true,
+				},
+				propertyDeclarationTypes = {
+					enabled = true,
+				},
+				parameterTypes = {
+					enabled = true,
+					suppressWhenArgumentMatchesName = true,
+				},
+				variableTypes = {
+					enabled = true,
+				},
+			},
+		},
+	},
 	on_init = function(client)
 		client.server_capabilities.documentFormattingProvider = false
 		client.server_capabilities.documentFormattingRangeProvider = false
@@ -83,7 +169,7 @@ lspconfig.cssls.setup({
 })
 
 lspconfig.emmet_ls.setup({
-	filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less" },
+	filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "vue" },
 	init_options = {
 		html = {
 			options = {
@@ -162,5 +248,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		vim.keymap.set("n", "<leader>lr", vim.lsp.buf.references, opts)
 		vim.keymap.set("n", "<leader>ln", ":Lspsaga rename<CR>", opts)
 		vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts)
+		vim.keymap.set("n", "<leader>jr", ":JavaRunnerRunMain<CR>", opts)
+		vim.keymap.set("n", "<leader>jb", ":JavaBuildBuildWorkspace<CR>", opts)
 	end,
 })

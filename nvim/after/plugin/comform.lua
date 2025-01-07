@@ -11,6 +11,7 @@ conform_formater.setup({
 		typescript = { { "prettier" } },
 		javascriptreact = { { "prettier" } },
 		typescriptreact = { { "prettier" } },
+		vue = { { "prettier" } },
 		-- You can use a function here to determine the formatters dynamically
 		python = function(bufnr)
 			if require("conform").get_formatter_info("ruff_format", bufnr).available then

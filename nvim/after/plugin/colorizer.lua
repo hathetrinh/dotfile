@@ -5,6 +5,7 @@ colorizer.setup({
 	"javascript",
 	"reacttypescript",
 	"typescript",
+	"vue",
 	html = {
 		mode = "foreground",
 	},
