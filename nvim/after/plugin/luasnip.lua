@@ -7,11 +7,11 @@ keymap("i", "<c-k>", "<cmd>lua require'luasnip'.jump(-1)<CR>", opts)
 keymap("s", "<c-k>", "<cmd>lua require'luasnip'.jump(-1)<CR>", opts)
 
 if opts then
-	require("luasnip").config.setup(opts)
+    require("luasnip").config.setup(opts)
 end
 
 vim.tbl_map(function(type)
-	require("luasnip.loaders.from_" .. type).lazy_load()
+    require("luasnip.loaders.from_" .. type).lazy_load()
 end, { "vscode", "snipmate", "lua" })
 
 -- friently-snippets - enable standardized comments snippets

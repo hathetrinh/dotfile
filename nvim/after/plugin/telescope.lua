@@ -1,27 +1,27 @@
 require("telescope").setup({
-	defaults = {
-		file_ignore_patterns = { "node_modules", ".git" },
-	},
-	pickers = {
-		find_files = {
-			theme = "dropdown",
-		},
-		git_files = {
-			theme = "dropdown",
-		},
-		live_grep = {
-			theme = "dropdown",
-		},
-	},
-	extensions = {
-		fzf = {
-			fuzzy = true, -- false will only do exact matching
-			override_generic_sorter = true, -- override the generic sorter
-			override_file_sorter = true, -- override the file sorter
-			case_mode = "smart_case", -- or "ignore_case" or "respect_case"
-			-- case_mode = "ignore_case" -- or "ignore_case" or "respect_case"
-		},
-	},
+    defaults = {
+        file_ignore_patterns = { "node_modules", ".git" },
+    },
+    pickers = {
+        find_files = {
+            theme = "dropdown",
+        },
+        git_files = {
+            theme = "dropdown",
+        },
+        live_grep = {
+            theme = "dropdown",
+        },
+    },
+    extensions = {
+        fzf = {
+            fuzzy = true,                   -- false will only do exact matching
+            override_generic_sorter = true, -- override the generic sorter
+            override_file_sorter = true,    -- override the file sorter
+            case_mode = "smart_case",       -- or "ignore_case" or "respect_case"
+            -- case_mode = "ignore_case" -- or "ignore_case" or "respect_case"
+        },
+    },
 })
 require("telescope").load_extension("luasnip")
 require("telescope").load_extension("dap")
@@ -44,5 +44,5 @@ vim.keymap.set("n", "<leader>fx", ":Telescope git_status<cr>", {})
 vim.keymap.set("n", "<leader>lb", ":Telescope dap list_breakpoints<cr>", {})
 vim.keymap.set("n", "<leader>fw", ":Telescope git_worktree git_worktrees<cr>", {})
 vim.keymap.set("n", "<leader>fs", function()
-	builtin.grep_string({ search = vim.fn.input("Grep > ") })
+    builtin.grep_string({ search = vim.fn.input("Grep > ") })
 end)

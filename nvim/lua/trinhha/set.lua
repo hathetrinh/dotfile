@@ -38,7 +38,7 @@ vim.opt.spelllang = "en_us"
 vim.opt.spell = true
 
 local cmd = vim.cmd
-cmd([[ 
+cmd([[
     augroup AutoSave
         autocmd!
         autocmd CursorHoldI, CursorHold * silent! update
