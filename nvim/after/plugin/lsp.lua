@@ -20,14 +20,15 @@ require("mason-lspconfig").setup({
         "emmet_ls",
         "pyright",
         "pylsp",
-        "volar",
-        "jdtls"
+        --"volar",
+        --"jdtls",
+        "vue_ls"
     },
     handlers = {
         -- this first function is the "default handler"
         -- it applies to every language server without a "custom handler"
         function(server_name)
-            require("lspconfig")[server_name].setup({})
+            vim.lsp.enable(server_name)
         end,
 
         -- this is the "custom handler" for `jdtls`
@@ -36,9 +37,9 @@ require("mason-lspconfig").setup({
     },
 })
 
-local lspconfig = require("lspconfig")
+--local lspconfig = require("lspconfig")
 
-lspconfig.lua_ls.setup({
+vim.lsp.config('lua_ls', {
     settings = {
         Lua = {
             diagnostics = {
@@ -52,8 +53,9 @@ lspconfig.lua_ls.setup({
     },
 })
 
-require("lspconfig").pyright.setup({})
-require("lspconfig").pylsp.setup({})
+vim.lsp.enable('pyright')
+
+vim.lsp.enable('pylsp')
 
 local mason_registry = require("mason-registry")
 --local vue_language_server_path = mason_registry.get_package("vue-language-server"):get_install_path()
@@ -62,7 +64,7 @@ local vue_language_server_path = vim.fn.stdpath('data')
     .. '/mason/packages/vue-language-server/node_modules/@vue/language-server'
 
 
-lspconfig.ts_ls.setup({
+vim.lsp.config('ts_ls', {
     filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
     init_options = {
         plugins = {
@@ -100,7 +102,7 @@ lspconfig.ts_ls.setup({
     end,
 })
 
-lspconfig.volar.setup({
+vim.lsp.config('volar', {
     filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
     init_options = {
         vue = {
@@ -138,13 +140,13 @@ lspconfig.volar.setup({
     end,
 })
 
-lspconfig.cssmodules_ls.setup({
+vim.lsp.config('cssmodules_ls', {
     on_init = function(client)
         client.server_capabilities.definitionProvider = false
     end,
 })
 
-lspconfig.cssls.setup({
+vim.lsp.config('cssls', {
     on_init = function(client)
         client.server_capabilities.definitionProvider = false
         local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -152,7 +154,7 @@ lspconfig.cssls.setup({
     end,
 })
 
-lspconfig.emmet_ls.setup({
+vim.lsp.config('emmet_ls', {
     filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "vue" },
     init_options = {
         html = {
