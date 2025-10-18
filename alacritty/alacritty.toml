@@ -12,7 +12,7 @@ size = 18
 #use_thin_strokes = false
 
 [font.bold]
-family = "ComicShannsMono Nerd Font"
+family = "Hack Nerd Font Mono"
 style = "Bold"
 
 #[font.debug]
@@ -23,12 +23,12 @@ x = 0
 y = 0
 
 [font.italic]
-family = "ComicShannsMono Nerd Font"
+family = "Hack Nerd Font Mono"
 style = "Italic"
 
 [font.normal]
-#family = "Hack Nerd Font Mono"
-family = "ComicShannsMono Nerd Font"
+family = "Hack Nerd Font Mono"
+#family = "ComicShannsMono Nerd Font"
 style = "Regular"
 
 [font.offset]
@@ -40,7 +40,7 @@ history = 100000
 multiplier = 3
 
 [terminal.shell]
-program = "/opt/homebrew/bin/tmux" # <- Set your path
+program = "/usr/local/bin/tmux" # <- Set your path
 args = ["new-session", "-A", "-D", "-s", "🏡 Home"]
 
 [window]

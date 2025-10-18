@@ -7,7 +7,7 @@ local path_to_jdtls = path_to_mason_packages .. "/jdtls"
 local path_to_jdebug = path_to_mason_packages .. "/java-debug-adapter"
 local path_to_jtest = path_to_mason_packages .. "/java-test"
 local lombok_path = path_to_jdtls .. "/lombok.jar"
-local path_to_jar = path_to_jdtls .. "/plugins/org.eclipse.equinox.launcher_1.7.0.v20250331-1702.jar"
+local path_to_jar = path_to_jdtls .. "/plugins/org.eclipse.equinox.launcher__1.7.0.v20250519-0528.jar"
 local path_to_config = path_to_jdtls .. "/config_mac"
 local root_markers = { ".git", "mvnw", "gradlew", "pom.xml", "build.gradle" }
 local java_home = os.getenv("JAVA_HOME")
@@ -83,7 +83,7 @@ local config = {
     root_dir = vim.fs.dirname(vim.fs.find({ 'gradlew', '.git', 'mvnw' }, { upward = true })[1]),
 
     settings = {
-        ['java.format.settings.url'] = "/Users/ttha/.config/nvim/styles/googleStyle.xml",
+        ['java.format.settings.url'] = "/Users/cafesuaphin/.config/nvim/styles/googleStyle.xml",
         ['java.format.settings.profile'] = "GoogleStyle",
         java = {
             references = {
@@ -92,7 +92,7 @@ local config = {
             format = {
                 settings = {
                     --url = "/Users/ttha/Development/Project.xml",
-                    url = "/Users/ttha/.config/nvim/styles/googleStyle.xml",
+                    url = "/Users/cafesuaphin/.config/nvim/styles/googleStyle.xml",
                     profile = "GoogleStyle"
                 },
             },
@@ -147,8 +147,8 @@ local config = {
 
                 runtimes = {
                     {
-                        name = "JavaSE-21",
-                        path = "/Users/ttha/Development/cde/java21",
+                        name = "JavaSE-25",
+                        path = "/Users/cafesuaphin/.jenv/versions/25",
                         default = true,
                     }
                 }
